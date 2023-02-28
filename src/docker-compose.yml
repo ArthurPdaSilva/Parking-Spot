@@ -1,0 +1,32 @@
+# Versão do composer
+version: '3'
+# Você pode definir o nome que quiser
+services:
+  service-database:
+    # Imagem e versão
+    image: postgres:10.17
+    ports:
+      - "5432:5432"
+    container_name: database
+    # Variáveis 
+    environment:
+      POSTGRES_USER: teste
+      POSTGRES_PASSWORD: teste
+    networks:
+      - pg-net
+
+    # Podemos adicionar também o pgAdmin para visualizar
+  service-pgAdmin:
+    image: dpage/pgadmin4
+    ports:
+      - "15432:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: teste
+    networks:
+      - pg-net
+# Conectar ambos os containers
+networks:
+  pg-net:
+    driver: bridge
+    
